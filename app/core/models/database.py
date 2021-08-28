@@ -14,7 +14,6 @@ SQLALCHEMY_DATABASE_URL = os.getenv('SQLALCHEMY_DATABASE_URI')
 # https://docs.sqlalchemy.org/en/14/tutorial/engine.html#tutorial-engine
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
-    # connect_args={"check_same_thread": False} # only for sqlite
 )
 
 # https://docs.sqlalchemy.org/en/14/orm/session_basics.html
