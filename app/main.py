@@ -2,8 +2,7 @@
 import uvicorn
 from fastapi import FastAPI
 
-from .api import books
-
+from app.api import books
 
 app = FastAPI()
 
