@@ -18,8 +18,8 @@ def get_db():
 
 
 @router.get("/books/", tags=["books"])
-async def read_books():
-    return {"title": "Harry Potter"}
+async def read_books(db: Session = Depends(get_db)):
+    return crud_books.get_all_books(db=db)
 
 
 @router.post("/books/", tags=["books"])
