@@ -11,6 +11,9 @@ from sqlalchemy.orm import sessionmaker
 
 SQLALCHEMY_DATABASE_URL = os.getenv('DATABASE_URL')
 
+if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
+    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
 # https://docs.sqlalchemy.org/en/14/tutorial/engine.html#tutorial-engine
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
