@@ -5,8 +5,9 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /code
 
-COPY . /code/
-
+# https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#add-or-copy
+COPY requirements.txt /code/
 RUN pip install -r /code/requirements.txt
+COPY . /code
 
 EXPOSE 8000
