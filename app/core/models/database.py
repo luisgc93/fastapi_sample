@@ -9,7 +9,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 
-SQLALCHEMY_DATABASE_URL = os.getenv('SQLALCHEMY_DATABASE_URI')
+SQLALCHEMY_DATABASE_URL = os.getenv('DATABASE_URL')
 
 # https://docs.sqlalchemy.org/en/14/tutorial/engine.html#tutorial-engine
 engine = create_engine(
