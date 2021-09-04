@@ -12,7 +12,9 @@ from sqlalchemy.orm import sessionmaker
 SQLALCHEMY_DATABASE_URL = os.getenv('DATABASE_URL')
 
 if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
+    print(SQLALCHEMY_DATABASE_URL)
     SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
+    print("NEW DB URL: " + SQLALCHEMY_DATABASE_URL)
 
 # https://docs.sqlalchemy.org/en/14/tutorial/engine.html#tutorial-engine
 engine = create_engine(
