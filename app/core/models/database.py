@@ -9,15 +9,15 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 
-SQLALCHEMY_DATABASE_URL = os.getenv('DATABASE_URL')
+db_uri = os.getenv('DATABASE_URL')
 
-if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
-    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
+if db_uri.startswith("postgres://"):
+    db_uri = db_uri.replace("postgres://", "postgresql://", 1)
 
-print("MY DB URL: " + SQLALCHEMY_DATABASE_URL)
+print("MY DB URL: " + db_uri)
 # https://docs.sqlalchemy.org/en/14/tutorial/engine.html#tutorial-engine
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL,
+    db_uri,
 )
 
 # https://docs.sqlalchemy.org/en/14/orm/session_basics.html
