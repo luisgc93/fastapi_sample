@@ -14,8 +14,8 @@ SQLALCHEMY_DATABASE_URL = os.getenv("SQLALCHEMY_DATABASE_URL")
 
 
 url = make_url(SQLALCHEMY_DATABASE_URL)
-print("ENTRYPOINT" + url._get_entrypoint())
-print("DIALECT" + url._get_entrypoint().get_dialect_cls(url))
+print("ENTRYPOINT" + str(url._get_entrypoint()))
+print("DIALECT" + str(url._get_entrypoint().get_dialect_cls(url)))
 print("MAKE URL RESULT: " + str(url))
 # https://docs.sqlalchemy.org/en/14/tutorial/engine.html#tutorial-engine
 engine = create_engine(
