@@ -10,16 +10,11 @@ from sqlalchemy.orm import sessionmaker
 
 # DATABASE_URL = os.getenv("DATABASE_URL").replace("://", "ql://", 1)
 
-POSTGRES_USER = os.getenv("POSTGRES_USER")
-POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
-POSTGRES_HOST = os.getenv("POSTGRES_HOST")
-POSTGRES_DB = os.getenv("POSTGRES_DB")
-DATABASE_URL = f"postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}"
+SQLALCHEMY_DATABASE_URL = os.getenv("SQLALCHEMY_DATABASE_URL")
 
-print(f"Database URL: {DATABASE_URL}")
 # https://docs.sqlalchemy.org/en/14/tutorial/engine.html#tutorial-engine
 engine = create_engine(
-    DATABASE_URL,
+    SQLALCHEMY_DATABASE_URL,
 )
 
 # https://docs.sqlalchemy.org/en/14/orm/session_basics.html
