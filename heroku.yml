@@ -4,7 +4,5 @@ setup:
 build:
   docker:
     web: Dockerfile
-#release:
-#  image: web
 #run:
 #  web: bash -c "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
