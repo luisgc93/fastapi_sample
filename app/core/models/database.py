@@ -9,17 +9,12 @@ from sqlalchemy.ext.declarative import declarative_base
 
 from sqlalchemy.orm import sessionmaker
 
-SQLALCHEMY_DATABASE_URL = os.getenv("SQLALCHEMY_DATABASE_URL")
-# should the url contain the driver name? i.e psycopg2
-
-
-url = make_url(SQLALCHEMY_DATABASE_URL)
-print("ENTRYPOINT" + str(url._get_entrypoint()))
-print("DIALECT" + str(url._get_entrypoint().get_dialect_cls(url)))
-print("MAKE URL RESULT: " + str(url))
+uri = os.getenv("DATABASE_URL")  # or other relevant config var
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
 # https://docs.sqlalchemy.org/en/14/tutorial/engine.html#tutorial-engine
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL,
+    uri,
 )
 
 # https://docs.sqlalchemy.org/en/14/orm/session_basics.html
