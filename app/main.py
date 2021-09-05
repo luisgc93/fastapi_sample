@@ -14,5 +14,7 @@ async def root():
     return {"message": "Hello Bigger Applications!"}
 
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+@app.get("/health")
+async def healthcheck():
+    # TODO: test db connection as well https://docs.sqlalchemy.org/en/14/core/engines.html
+    return {"status": "ok"}
