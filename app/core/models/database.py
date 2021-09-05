@@ -8,7 +8,13 @@ from sqlalchemy.ext.declarative import declarative_base
 
 from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = os.getenv("DATABASE_URL").replace("://", "ql://", 1)
+# DATABASE_URL = os.getenv("DATABASE_URL").replace("://", "ql://", 1)
+
+POSTGRES_USER = os.getenv("POSTGRES_USER")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+POSTGRES_HOST = os.getenv("POSTGRES_HOST")
+POSTGRES_DB = os.getenv("POSTGRES_DB")
+DATABASE_URL = f"postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}"
 
 print(f"Database URL: {DATABASE_URL}")
 # https://docs.sqlalchemy.org/en/14/tutorial/engine.html#tutorial-engine
