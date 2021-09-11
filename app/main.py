@@ -1,5 +1,4 @@
 # https://fastapi.tiangolo.com/tutorial/bigger-applications/#the-main-fastapi
-import uvicorn
 from fastapi import FastAPI
 
 from app.api import books
@@ -14,7 +13,7 @@ async def root():
     return {"message": "Hello Bigger Applications!"}
 
 
-@app.get("/health")
+@app.get("/health/")
 async def healthcheck():
     # TODO: test db connection as well https://docs.sqlalchemy.org/en/14/core/engines.html
     return {"status": "ok"}
