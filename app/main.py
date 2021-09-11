@@ -1,7 +1,9 @@
 # https://fastapi.tiangolo.com/tutorial/bigger-applications/#the-main-fastapi
+
 from fastapi import FastAPI
 
 from app.api import books
+from app.core.models.database import engine
 
 app = FastAPI()
 
@@ -15,5 +17,5 @@ async def root():
 
 @app.get("/health/")
 async def healthcheck():
-    # TODO: test db connection as well https://docs.sqlalchemy.org/en/14/core/engines.html
-    return {"status": "ok"}
+    with engine.connect():
+        return {"status": "ok"}
