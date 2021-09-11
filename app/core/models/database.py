@@ -8,13 +8,14 @@ from sqlalchemy.ext.declarative import declarative_base
 
 from sqlalchemy.orm import sessionmaker
 
-# DATABASE_URL = os.getenv("DATABASE_URL").replace("://", "ql://", 1)
-
 SQLALCHEMY_DATABASE_URL = os.getenv("SQLALCHEMY_DATABASE_URL")
 
 # https://docs.sqlalchemy.org/en/14/tutorial/engine.html#tutorial-engine
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
+    pool_pre_ping=True,
+    pool_size=15,
+    max_overflow=10
 )
 
 # https://docs.sqlalchemy.org/en/14/orm/session_basics.html
