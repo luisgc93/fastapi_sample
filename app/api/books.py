@@ -8,11 +8,11 @@ from app.core.schemas import schemas
 router = APIRouter()
 
 
-@router.get("/books/", tags=["books"])
-async def read_books(db: Session = Depends(get_db)):
-    return crud_books.get_all_books(db=db)
-
-
 @router.post("/books/", tags=["books"])
 async def create_book(book: schemas.BookCreate, db: Session = Depends(get_db)):
     return crud_books.create_book(db=db, book=book)
+
+
+@router.get("/books/", tags=["books"])
+async def read_books(db: Session = Depends(get_db)):
+    return crud_books.get_all_books(db=db)
