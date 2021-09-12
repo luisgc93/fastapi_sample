@@ -1,6 +1,24 @@
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel  # noqa
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class UserBase(BaseModel):
+    username: str
+    email: Optional[str] = None
+
+
+class UserCreate(UserBase):
+    password: str
+
+
+class TokenData(BaseModel):
+    username: Optional[str] = None
 
 
 class BookBase(BaseModel):
