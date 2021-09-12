@@ -2,12 +2,13 @@
 
 from fastapi import FastAPI
 
-from app.api import books
+from app.api import books, users
 from app.core.models.database import engine
 
 app = FastAPI()
 
 app.include_router(books.router)
+app.include_router(users.router)
 
 
 @app.get("/")
