@@ -2,19 +2,10 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.core.crud import crud_books
-from app.core.models.database import SessionLocal
+from app.core.models.database import get_db
 from app.core.schemas import schemas
 
 router = APIRouter()
-
-
-def get_db():
-    # Dependency https://fastapi.tiangolo.com/tutorial/sql-databases/#create-a-dependency
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @router.get("/books/", tags=["books"])
