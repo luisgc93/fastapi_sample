@@ -12,7 +12,7 @@ app.include_router(books.router)
 
 @app.get("/")
 async def root():
-    return {"message": "Hello Bigger Applications!"}
+    return {"message": "Welcome to the Library API!"}
 
 
 @app.get("/health/")
