@@ -74,6 +74,7 @@ async def login_for_access_token(db: Session = Depends(get_db), form_data: OAuth
 
 @router.post("/users/")
 async def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    # TODO: Validate if a user already exists for that username
     return crud_users.create_user(db, user)
 
 

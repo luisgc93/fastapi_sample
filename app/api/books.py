@@ -10,6 +10,7 @@ router = APIRouter()
 
 @router.post("/books/", tags=["books"])
 async def create_book(book: schemas.BookCreate, db: Session = Depends(get_db)):
+    # TODO: Validate if a book already exists under that title
     return crud_books.create_book(db=db, book=book)
 
 
