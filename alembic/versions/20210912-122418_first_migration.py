@@ -1,15 +1,15 @@
 """First migration
 
-Revision ID: ee030c62af4e
+Revision ID: 5205f7ee4785
 Revises: 
-Create Date: 2021-08-29 18:40:23.267345
+Create Date: 2021-09-12 12:24:18.168479
 
 """
 from alembic import op
 import sqlalchemy as sa
 
 
-revision = 'ee030c62af4e'
+revision = '5205f7ee4785'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,6 +29,7 @@ def upgrade():
     op.create_table(
         'users',
         sa.Column('id', sa.Integer(), nullable=False),
+        sa.Column('username', sa.String(), nullable=True),
         sa.Column('email', sa.String(), nullable=True),
         sa.Column('hashed_password', sa.String(), nullable=True),
         sa.Column('is_active', sa.Boolean(), nullable=True),
@@ -36,9 +37,11 @@ def upgrade():
     )
     op.create_index(op.f('ix_users_email'), 'users', ['email'], unique=True)
     op.create_index(op.f('ix_users_id'), 'users', ['id'], unique=False)
+    op.create_index(op.f('ix_users_username'), 'users', ['username'], unique=True)
 
 
 def downgrade():
+    op.drop_index(op.f('ix_users_username'), table_name='users')
     op.drop_index(op.f('ix_users_id'), table_name='users')
     op.drop_index(op.f('ix_users_email'), table_name='users')
     op.drop_table('users')
