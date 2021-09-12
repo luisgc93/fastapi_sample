@@ -38,14 +38,14 @@ def authenticate_user(username: str, password: str, db: Session = Depends(get_db
 def create_access_token(data: dict, expires_delta: int):
     expire = datetime.utcnow() + timedelta(minutes=expires_delta)
     data.update({"exp": expire})
-    encoded_jwt = jwt.encode(data, os.getenv("SECRET_KEY"), algorithm=os.getenv("ALGORITHM"))
+    encoded_jwt = jwt.encode(data, os.getenv("SESSION_AUTH_KEY"), algorithm=os.getenv("ALGORITHM"))
 
     return encoded_jwt
 
 
 async def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     try:
-        payload = jwt.decode(token, os.getenv("SECRET_KEY"), algorithms=[os.getenv("ALGORITHM")])
+        payload = jwt.decode(token, os.getenv("SESSION_AUTH_KEY"), algorithms=[os.getenv("ALGORITHM")])
         username: str = payload.get("sub")
         if username is None:
             raise CREDENTIALS_EXCEPTION
