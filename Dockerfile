@@ -9,6 +9,7 @@ WORKDIR /code
 COPY requirements.txt /code/
 RUN pip install -r /code/requirements.txt
 COPY . /code
+ENV PYTHONPATH "${PYTHONPATH}:/code"
 
 EXPOSE 8000
 
