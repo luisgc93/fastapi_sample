@@ -32,4 +32,3 @@ class TestBooks:
 
         assert response.status_code == 422
         assert session.query(Book).count() == 0
-
