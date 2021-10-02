@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 
 from app.api import books, users
-from app.core.models.database import engine
+from app.core.database import engine
 
 app = FastAPI()
 

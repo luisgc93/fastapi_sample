@@ -1,7 +1,6 @@
 from sqlalchemy.orm import Session
 
-from app.core.schemas import schemas
-from app.core.models import models
+from app.core import schemas, models
 
 
 def get_all_books(db: Session):

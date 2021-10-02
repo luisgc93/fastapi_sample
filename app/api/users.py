@@ -7,10 +7,10 @@ from sqlalchemy.orm import Session
 
 from app.core.crud import crud_users
 from app.core.exceptions import CREDENTIALS_EXCEPTION, AUTHENTICATION_EXCEPTION
-from app.core.models.database import get_db
-from app.core.models.models import User
-from app.core.schemas import schemas
-from app.core.schemas.schemas import TokenData
+from app.core.database import get_db
+from app.core.models import User
+from app.core import schemas
+from app.core.schemas import TokenData
 
 from passlib.context import CryptContext
 from jose import JWTError, jwt

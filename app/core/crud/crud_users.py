@@ -1,8 +1,7 @@
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
-from app.core.schemas import schemas
-from app.core.models import models
+from app.core import schemas, models
 
 
 def _get_password_hash(password):

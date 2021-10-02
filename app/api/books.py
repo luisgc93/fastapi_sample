@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.core.crud import crud_books
-from app.core.models.database import get_db
-from app.core.schemas import schemas
+from app.core.database import get_db
+from app.core import schemas
 
 router = APIRouter()
 
