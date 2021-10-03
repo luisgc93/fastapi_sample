@@ -17,3 +17,5 @@ COPY . /code
 ENV PYTHONPATH "${PYTHONPATH}:/code"
 
 EXPOSE 8000
+
+CMD bash -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT --reload"
