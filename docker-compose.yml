@@ -1,6 +1,5 @@
 version: "3.9"
 services:
-
   db:
     image: postgres:13.3-alpine
     env_file:
