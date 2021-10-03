@@ -1,5 +1,6 @@
 version: "3.9"
 services:
+
   db:
     image: postgres:13.3-alpine
     env_file:
@@ -15,13 +16,33 @@ services:
       - .:/code
     ports:
       - "8000:8000"
+    entrypoint: [ "/bin/sh","-c" ]
+    command:
+      - uvicorn app.main:app --host 0.0.0.0 --port $PORT --reload
+    depends_on:
+      - migration
+
+  migration:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./alembic:/code/alembic:rw
+    entrypoint: ["/bin/sh","-c"]
+    command:
+      - |
+        wait-for-it ${POSTGRES_HOST}:5432 -t 30
+        alembic upgrade head
     depends_on:
       - db
+
   python_test:
     build: .
     profiles:
-      ["python_test"]
+      - python_test
     env_file:
       - .env
+    volumes:
+      - .:/code
     command:
       pytest
