@@ -1,10 +1,10 @@
-env-start: ## Start project containers defined in docker-compose
+start: ## Start project containers defined in docker-compose
 	docker-compose up -d
 
-env-stop: ## Stop project containers defined in docker-compose
+stop: ## Stop project containers defined in docker-compose
 	docker-compose stop
 
-env-destroy: ## Destroy all project containers
+destroy: ## Destroy all project containers
 	docker-compose down -v --rmi local --remove-orphans
 
 clean:  ## Delete all volumes, networks, images & cache
