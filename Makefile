@@ -10,14 +10,9 @@ env-destroy: ## Destroy all project containers
 clean:  ## Delete all volumes, networks, images & cache
 	docker system prune -a --volumes
 
-test: migrate  ## Run tests and generate coverage report
+test: start ## Run tests and generate coverage report
 	docker-compose build python_test
 	docker-compose run python_test
-
-migrate: env-destroy  ## Run db migrations
-	docker-compose build db
-	docker-compose build migration
-	docker-compose run migration
 
 
 env-recreate: env-destroy env-start ## Destroy project containers and start them again
