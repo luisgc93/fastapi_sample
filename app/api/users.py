@@ -10,13 +10,13 @@ from app.core.exceptions import CREDENTIALS_EXCEPTION, AUTHENTICATION_EXCEPTION
 from app.core.database import get_db
 from app.core.models import User
 from app.core import schemas
-from app.core.schemas import TokenData
+from app.core.schemas import TokenData, UserCreate
 
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 
 
-router = APIRouter()
+router = APIRouter(tags=["users"])
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -63,9 +63,10 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
     return current_user
 
 
-@router.post("/login", response_model=schemas.Token)
-async def login_for_access_token(db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()):
-    user = authenticate_user(form_data.username, form_data.password, db)
+@router.post("/login/", response_model=schemas.Token)
+async def login_for_access_token(credentials: UserCreate, db: Session = Depends(get_db)):
+    breakpoint()
+    user = authenticate_user(credentials.username, credentials.password, db)
     access_token = create_access_token(
         data={"sub": user.username}, expires_delta=int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
     )
@@ -78,6 +79,6 @@ async def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud_users.create_user(db, user)
 
 
-@router.get("/users/", tags=["users"])
+@router.get("/users/")
 async def read_users(db: Session = Depends(get_db)):
     return crud_users.get_all_users(db=db)
