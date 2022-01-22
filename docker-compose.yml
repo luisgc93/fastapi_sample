@@ -20,6 +20,7 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    restart: always
 
   python_test:
     build: .
@@ -29,5 +30,6 @@ services:
       - .env
     volumes:
       - .:/code
+    restart: always
     command:
     - pytest
