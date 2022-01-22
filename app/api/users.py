@@ -65,7 +65,6 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
 
 @router.post("/login/", response_model=schemas.Token)
 async def login_for_access_token(credentials: UserCreate, db: Session = Depends(get_db)):
-    breakpoint()
     user = authenticate_user(credentials.username, credentials.password, db)
     access_token = create_access_token(
         data={"sub": user.username}, expires_delta=int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
