@@ -1,4 +1,4 @@
-# library_api 📖
+# Library API - a dockerized FastAPI sample project 📖
 
 The following is a test project that uses FastAPI and SQLAlchemy to develop a backend for a fictional library website. 
 
