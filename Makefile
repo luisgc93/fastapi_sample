@@ -10,7 +10,7 @@ destroy: ## Destroy all project containers
 clean:  ## Delete all volumes, networks, images & cache
 	docker system prune -a --volumes
 
-test: start ## Run tests and generate coverage report
+test: recreate ## Run tests and generate coverage report
 	docker-compose build python_test
 	docker-compose run python_test
 
