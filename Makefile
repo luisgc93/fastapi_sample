@@ -15,4 +15,4 @@ test: start ## Run tests and generate coverage report
 	docker-compose run python_test
 
 
-env-recreate: env-destroy env-start ## Destroy project containers and start them again
+recreate: destroy start ## Destroy project containers and start them again
