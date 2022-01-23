@@ -22,6 +22,19 @@ services:
       - db
     restart: always
 
+  notifier:
+    build:
+      context: .
+      dockerfile: notifier-service/Dockerfile
+    environment:
+      LOG_LEVEL: DEBUG
+    volumes:
+      - .:/code
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+    restart: always
 
   redis:
     container_name: redis
