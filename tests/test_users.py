@@ -19,6 +19,12 @@ class TestUsers:
 
         assert response.status_code == 200
         assert session.query(User).count() == 1
+        assert response.json() == {
+            "is_active": True,
+            "email": None,
+            "username": "user123",
+            "id": 1
+        }
 
 
 class TestLogin:
@@ -31,7 +37,6 @@ class TestLogin:
             "/users/",
             json=user_data
         )
-
         assert response.status_code == 200
         assert session.query(User).count() == 1
 

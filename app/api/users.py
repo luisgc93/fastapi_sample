@@ -2,35 +2,34 @@ import os
 from datetime import datetime, timedelta
 
 from fastapi import Depends, APIRouter
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
+from werkzeug.security import check_password_hash
 
 from app.core.crud import crud_users
 from app.core.exceptions import CREDENTIALS_EXCEPTION, AUTHENTICATION_EXCEPTION
 from app.core.database import get_db
 from app.core.models import User
 from app.core import schemas
-from app.core.schemas import TokenData, UserCreate
+from app.core.schemas import TokenData, UserCreate, UserRead
 
-from passlib.context import CryptContext
 from jose import JWTError, jwt
 
 
 router = APIRouter(tags=["users"])
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
+    return check_password_hash(hashed_password, plain_password)
 
 
 def authenticate_user(username: str, password: str, db: Session = Depends(get_db)) -> User:
     user = crud_users.get_user_by_username(db, username)
     if not user:
         raise AUTHENTICATION_EXCEPTION
-    if not verify_password(password, user.hashed_password):
+    if check_password_hash(user.hashed_password, password) is False:
         raise CREDENTIALS_EXCEPTION
     return user
 
@@ -43,7 +42,7 @@ def create_access_token(data: dict, expires_delta: int):
     return encoded_jwt
 
 
-async def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+async def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)) -> User:
     try:
         payload = jwt.decode(token, os.getenv("SESSION_AUTH_KEY"), algorithms=[os.getenv("ALGORITHM")])
         username: str = payload.get("sub")
@@ -75,7 +74,8 @@ async def login_for_access_token(credentials: UserCreate, db: Session = Depends(
 @router.post("/users/")
 async def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     # TODO: Validate if a user already exists for that username
-    return crud_users.create_user(db, user)
+    user = crud_users.create_user(db, user)
+    return UserRead.from_orm(user)
 
 
 @router.get("/users/")
