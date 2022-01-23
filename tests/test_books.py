@@ -20,6 +20,23 @@ class TestPostBooks:
         assert response.status_code == 200
         assert session.query(Book).count() == 1
 
+    def test_returns_422_when_book_title_already_exists(
+            self, client, user, session
+    ):
+        auth = login(client, user)
+        payload = {
+            "title": "Harry Potter and the Philosopher's Stone",
+            "author": "J. K. Rowling"
+        }
+        response = client.post("/books/", json=payload, headers=auth)
+
+        assert response.status_code == 200
+
+        response = client.post("/books/", json=payload, headers=auth)
+        assert response.status_code == 422
+        assert response.json()["detail"] == "A book with title Harry Potter and " \
+                                            "the Philosopher's Stone already exists."
+
     def test_returns_422_when_payload_is_invalid(
             self, client, user, session
     ):
