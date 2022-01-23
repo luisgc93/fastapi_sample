@@ -64,7 +64,7 @@ class UserFactory(SQLAlchemyModelFactory):
 @pytest.fixture(autouse=True)
 def provide_session_to_factories(session):
     for factory in [UserFactory, BookFactory]:
-        factory._meta.sqlalchemy_session = session  # noqa
+        factory._meta.sqlalchemy_session = session
 
 
 @pytest.fixture
