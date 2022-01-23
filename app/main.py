@@ -1,9 +1,9 @@
 # https://fastapi.tiangolo.com/tutorial/bigger-applications/#the-main-fastapi
 
 from fastapi import FastAPI
-
 from app.api import books, users
 from app.core.database import engine
+
 
 app = FastAPI()
 
