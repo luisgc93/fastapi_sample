@@ -49,5 +49,5 @@ curl --location --request POST '0.0.0.0:8000/books/' \
 ````
 
 Full API spec can be found at:
-https://book-api-fastapi-project.herokuapp.com/
+https://book-api-fastapi-project.herokuapp.com/docs/
 
