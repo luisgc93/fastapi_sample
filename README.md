@@ -40,7 +40,7 @@ You can then use the other endpoints passing your access token as a request head
 
 ````
 curl --location --request POST '0.0.0.0:8000/books/' \
---header 'Authorization: Bearer your token' \
+--header 'Authorization: Bearer {your token}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "title": "Harry Potter and the Philosopher'\''s Stone",
