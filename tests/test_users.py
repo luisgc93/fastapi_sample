@@ -12,10 +12,7 @@ class TestUsers:
             "username": "user123",
             "password": "safe-pass123",
         }
-        response = client.post(
-            "/users/",
-            json=payload
-        )
+        response = client.post("/users/", json=payload)
 
         assert response.status_code == 200
         assert session.query(User).count() == 1
@@ -25,6 +22,22 @@ class TestUsers:
             "username": "user123",
             "id": 1
         }
+
+    def test_returns_422_when_user_with_username_already_exists(
+            self, client, session
+    ):
+
+        payload = {
+            "username": "user123",
+            "password": "safe-pass123",
+        }
+        response = client.post("/users/", json=payload)
+
+        assert response.status_code == 200
+
+        response = client.post("/users/", json=payload)
+
+        assert response.status_code == 422
 
 
 class TestLogin:

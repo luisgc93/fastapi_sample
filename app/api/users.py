@@ -1,7 +1,7 @@
 import os
 from datetime import datetime, timedelta
 
-from fastapi import Depends, APIRouter
+from fastapi import Depends, APIRouter, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from werkzeug.security import check_password_hash
@@ -73,7 +73,8 @@ async def login_for_access_token(credentials: UserCreate, db: Session = Depends(
 
 @router.post("/users/")
 async def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    # TODO: Validate if a user already exists for that username
+    if crud_users.get_user_by_username(db, username=UserCreate.username):
+        raise HTTPException(status_code=422, detail=f"A user with username {UserCreate.username} already exists.")
     user = crud_users.create_user(db, user)
     return UserRead.from_orm(user)
 
