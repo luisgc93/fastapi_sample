@@ -73,7 +73,7 @@ async def login_for_access_token(credentials: UserCreate, db: Session = Depends(
 
 @router.post("/users/")
 async def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    if crud_users.get_user_by_username(db, username=UserCreate.username):
+    if crud_users.get_user_by_username(db, username=user.username):
         raise HTTPException(status_code=422, detail=f"A user with username {UserCreate.username} already exists.")
     user = crud_users.create_user(db, user)
     return UserRead.from_orm(user)
