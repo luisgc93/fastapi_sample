@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   db:
+    container_name: db
     image: postgres:13.3-alpine
     env_file:
       - .env
@@ -11,6 +12,7 @@ services:
     command: postgres -c config_file=/etc/postgresql.conf
 
   backend:
+    container_name: backend
     build: .
     env_file:
       - .env
@@ -23,6 +25,7 @@ services:
     restart: always
 
   notifier:
+    container_name: notifier
     build:
       context: .
       dockerfile: notifier-service/Dockerfile
