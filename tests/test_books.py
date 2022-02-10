@@ -1,4 +1,4 @@
-from app.core.models import Book, User
+from app.core.models import Book
 from tests.conftest import login
 
 
